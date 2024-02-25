@@ -22,15 +22,15 @@ class CustomButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap ??
           () {
-            Navigator.pushNamed(context, routeName!);
+            // Navigator.pushNamed(context, routeName!);
             // Navigator.canPop(context) ? Navigator.pop(context) : null;
           },
       child: Container(
         height: 55,
         width: double.infinity,
         decoration: BoxDecoration(
-            color: CustomColors.buttonColor,
-            borderRadius: BorderRadius.circular(5)),
+            color: CustomColors.deepBlueColor,
+            borderRadius: BorderRadius.circular(12)),
         child: Center(
           child: isLoading
               ? const CircularProgressIndicator(

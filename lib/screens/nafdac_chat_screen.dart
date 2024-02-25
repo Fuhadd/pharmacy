@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pharmacy/constants/custom_string.dart';
+import 'package:pharmacy/screens/app_view_model.dart';
 
 import '../constants/custom_colors.dart';
 import '../utils/spacers.dart';
@@ -11,18 +14,16 @@ import '../widgets/custom_appbar.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_textfield.dart';
 
-class CabinetScreen extends StatefulWidget {
-  final void Function()? onTap;
-  const CabinetScreen({
+class NafdacChatScreen extends StatefulHookConsumerWidget {
+  const NafdacChatScreen({
     super.key,
-    required this.onTap,
   });
 
   @override
-  State<CabinetScreen> createState() => _CabinetScreenState();
+  ConsumerState<NafdacChatScreen> createState() => _NafdacChatScreenState();
 }
 
-class _CabinetScreenState extends State<CabinetScreen> {
+class _NafdacChatScreenState extends ConsumerState<NafdacChatScreen> {
   DateTime? selectedDate;
 
   TimeOfDay? selectedTime;
@@ -52,7 +53,7 @@ class _CabinetScreenState extends State<CabinetScreen> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: FormBuilder(
-          // key: formKey,
+          key: formKey,
           child: Column(
             children: [
               const CustomAppBar(
@@ -67,12 +68,12 @@ class _CabinetScreenState extends State<CabinetScreen> {
                     children: [
                       horizontalSpacer(10),
                       Image.asset(
-                        ConstantString.cabinet,
+                        ConstantString.nafdac,
                         height: 28,
                       ),
                       horizontalSpacer(15),
                       const Text(
-                        "Cabinet",
+                        "NAFDAC # Verification",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 19,
@@ -80,41 +81,124 @@ class _CabinetScreenState extends State<CabinetScreen> {
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      const Text(
-                        "See all",
-                        style: TextStyle(
-                            fontSize: 14, color: CustomColors.blueTextColor),
-                      ),
-                      horizontalSpacer(2),
-                      const Icon(
-                        Icons.keyboard_arrow_down,
-                        color: CustomColors.blueTextColor,
-                        size: 20,
-                      )
-                    ],
-                  ),
                 ],
               ),
               verticalSpacer(40),
-              const CabinetContainer(
-                title: "Sudafed 500mg",
-                subTitle: "One tablet per day",
-                subTitle2: "Expected Recovery 9 days",
-                imageUrl: ConstantString.sudafed,
-              ),
-              verticalSpacer(20),
-              const CabinetContainer(
-                title: "Pepto Bismol Ultra",
-                isExpired: true,
-                imageUrl: ConstantString.pepto,
-              ),
-              verticalSpacer(20),
-              const CabinetContainer(
-                title: "Imodium Multi-Sympton",
-                isExpired: true,
-                imageUrl: ConstantString.imodium,
+              Container(
+                decoration: BoxDecoration(
+                  color: CustomColors.whiteColor,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 20),
+                  child: Column(
+                    // shrinkWrap: true,
+                    // padding: EdgeInsets.zero,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "BOT:",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: CustomColors.deepBlueColor),
+                      ),
+                      verticalSpacer(10),
+                      const Text(
+                        "Hello Clinton. Input NAFDAC # for verification.",
+                        style: TextStyle(
+                            // fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            color: CustomColors.greyColor),
+                      ),
+                      ref.watch(nafdacNumberProvider) == null
+                          ? const SizedBox(
+                              height: 200,
+                            )
+                          : Column(
+                              children: [
+                                verticalSpacer(25),
+                                Row(
+                                  children: [
+                                    const Text(
+                                      "Clinton: ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16,
+                                          color: CustomColors.deepBlueColor),
+                                    ),
+                                    Text(
+                                      ref.watch(nafdacNumberProvider) ?? "",
+                                      style: const TextStyle(
+                                          // fontWeight: FontWeight.w600,
+                                          fontSize: 14,
+                                          color: CustomColors.greyColor),
+                                    ),
+                                  ],
+                                ),
+                                verticalSpacer(25),
+                                const Row(
+                                  children: [
+                                    Text(
+                                      "BOT:",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: CustomColors.deepBlueColor),
+                                    ),
+                                  ],
+                                ),
+                                verticalSpacer(10),
+                                const Text(
+                                  "The number is for the drug Sudafed Extra with expiration date 12/12/2026. It is for patients with a Cold. Would  you like to track your cold recovery?",
+                                  style: TextStyle(
+                                      // fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: CustomColors.greyColor),
+                                ),
+                                verticalSpacer(40),
+                              ],
+                            ),
+                      SizedBox(
+                        height: 80,
+                        child: customMultiTextField(
+                          "nafdacNumber",
+                          hintText: "Search",
+                          validator: FormBuilderValidators.compose(
+                            [
+                              FormBuilderValidators.minLength(4,
+                                  errorText:
+                                      'A valid nafdac number should be greater than 4 characters '),
+                            ],
+                          ),
+                        ),
+                      ),
+                      verticalSpacer(20),
+                      CustomButton(
+                        title: "Submit",
+                        onTap: () {
+                          // FocusScope.of(context).unfocus();
+                          // bool? validate = formKey.currentState?.validate();
+                          // print(validate);
+                          formKey.currentState?.save();
+                          var nafdacNumber = formKey
+                              .currentState?.fields['nafdacNumber']?.value
+                              .toString()
+                              .trim();
+
+                          bool validate = (nafdacNumber != "null") &&
+                              (nafdacNumber != null) &&
+                              (nafdacNumber.isNotEmpty);
+                          if (validate) {
+                            ref.read(nafdacNumberProvider.notifier).state =
+                                nafdacNumber;
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

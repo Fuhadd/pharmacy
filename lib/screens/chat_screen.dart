@@ -11,18 +11,16 @@ import '../widgets/custom_appbar.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_textfield.dart';
 
-class CabinetScreen extends StatefulWidget {
-  final void Function()? onTap;
-  const CabinetScreen({
+class ChatScreen extends StatefulWidget {
+  const ChatScreen({
     super.key,
-    required this.onTap,
   });
 
   @override
-  State<CabinetScreen> createState() => _CabinetScreenState();
+  State<ChatScreen> createState() => _ChatScreenState();
 }
 
-class _CabinetScreenState extends State<CabinetScreen> {
+class _ChatScreenState extends State<ChatScreen> {
   DateTime? selectedDate;
 
   TimeOfDay? selectedTime;
@@ -67,12 +65,12 @@ class _CabinetScreenState extends State<CabinetScreen> {
                     children: [
                       horizontalSpacer(10),
                       Image.asset(
-                        ConstantString.cabinet,
+                        ConstantString.qrCode,
                         height: 28,
                       ),
                       horizontalSpacer(15),
                       const Text(
-                        "Cabinet",
+                        "Scan Barcode",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 19,
@@ -80,41 +78,72 @@ class _CabinetScreenState extends State<CabinetScreen> {
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      const Text(
-                        "See all",
-                        style: TextStyle(
-                            fontSize: 14, color: CustomColors.blueTextColor),
-                      ),
-                      horizontalSpacer(2),
-                      const Icon(
-                        Icons.keyboard_arrow_down,
-                        color: CustomColors.blueTextColor,
-                        size: 20,
-                      )
-                    ],
-                  ),
                 ],
               ),
               verticalSpacer(40),
-              const CabinetContainer(
-                title: "Sudafed 500mg",
-                subTitle: "One tablet per day",
-                subTitle2: "Expected Recovery 9 days",
-                imageUrl: ConstantString.sudafed,
-              ),
-              verticalSpacer(20),
-              const CabinetContainer(
-                title: "Pepto Bismol Ultra",
-                isExpired: true,
-                imageUrl: ConstantString.pepto,
-              ),
-              verticalSpacer(20),
-              const CabinetContainer(
-                title: "Imodium Multi-Sympton",
-                isExpired: true,
-                imageUrl: ConstantString.imodium,
+              Container(
+                decoration: BoxDecoration(
+                  color: CustomColors.whiteColor,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "BOT:",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: CustomColors.deepBlueColor),
+                      ),
+                      verticalSpacer(10),
+                      const Text(
+                        "Hello Clinton. Use your camera phone to scan the barcode on the drug.",
+                        style: TextStyle(
+                            // fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            color: CustomColors.greyColor),
+                      ),
+                      verticalSpacer(25),
+                      const Text(
+                        "Clinton:  Image Scanned",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: CustomColors.deepBlueColor),
+                      ),
+                      verticalSpacer(25),
+                      const Text(
+                        "BOT:",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: CustomColors.deepBlueColor),
+                      ),
+                      verticalSpacer(10),
+                      const Text(
+                        "The barcode scanned is for the drug Sudafed Extra. To track recovery follow up enter 1. For NAFDAC Verification enter 2.",
+                        style: TextStyle(
+                            // fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            color: CustomColors.greyColor),
+                      ),
+                      verticalSpacer(40),
+                      SizedBox(
+                        height: 80,
+                        child: customMultiTextField(
+                          "",
+                          hintText: "Search",
+                        ),
+                      ),
+                      verticalSpacer(20),
+                      const CustomButton(title: "Submit"),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

@@ -133,19 +133,21 @@ Widget customMultiTextField(String name,
           child: FormBuilderTextField(
             initialValue: initialValue,
             // cursorColor: CustomColors.,
+
             maxLines: 40,
             name: name,
             obscureText: obscureText,
             validator: validator,
             onChanged: onChanged,
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Colors.grey.withOpacity(0.5), width: 0.2),
-                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-              ),
-              contentPadding: const EdgeInsets.all(10.0),
-            ),
+            decoration: const InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: CustomColors.hintTextColor, width: 0.2),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                ),
+                contentPadding: EdgeInsets.all(10.0),
+                filled: true,
+                fillColor: CustomColors.inputFillColor),
           ),
         ),
       ],

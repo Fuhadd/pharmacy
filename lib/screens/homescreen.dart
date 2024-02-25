@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pharmacy/screens/profile_screen.dart';
+import 'package:pharmacy/screens/chat_bot_screen.dart';
 
 import '../constants/custom_colors.dart';
 import '../constants/custom_string.dart';
-import 'create_job_screen.dart';
+import 'services_screen.dart';
 import 'general_info_screen.dart';
 import 'job_list_screen.dart';
-import 'knowledge_screen.dart';
+import 'chat_screen.dart';
 import 'ml_prep_screen.dart';
-import 'note_screen.dart';
+import 'nafdac_chat_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,28 +25,48 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> screenLists = [
-      CreateJobScreen(
+      ServicesScreen(
         onTap: () {
           setState(() {
             index = 1;
           });
         },
+        onScanTap: () {
+          setState(() {
+            index = 2;
+          });
+        },
+        onVerifyTap: () {
+          setState(() {
+            index = 4;
+          });
+        },
+        onChatTap: () {
+          setState(() {
+            index = 3;
+          });
+        },
+        onAssessTap: () {
+          setState(() {
+            index = 1;
+          });
+        },
       ),
-      JobListScreen(
+      CabinetScreen(
         onTap: () {
           setState(() {
             index = 0;
           });
         },
-        onJobTap: () {
-          setState(() {
-            index = 5;
-          });
-        },
+        // onJobTap: () {
+        //   setState(() {
+        //     index = 5;
+        //   });
+        // },
       ),
-      const KnowledgeScreen(),
-      const ProfileScreen(),
-      const NoteScreen(),
+      const ChatScreen(),
+      const ChatBotScreen(),
+      const NafdacChatScreen(),
       MlPrepScreen(
         onFowardTap: () {
           setState(() {
@@ -63,7 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
       child: SafeArea(
         top: false,
         child: Scaffold(
-          backgroundColor: CustomColors.purpleBgColor,
+          // resizeToAvoidBottomInset: false,
+          backgroundColor: CustomColors.blueBgColor,
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: Padding(
@@ -79,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(0.0),
                 height: 60,
                 notchMargin: 5.0,
-                color: const Color(0xFF2E2779),
+                color: const Color(0xFF03112E),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   mainAxisSize: MainAxisSize.max,
@@ -95,9 +116,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: SvgPicture.asset(
                           ConstantString.homeIcon,
                           height: 20,
-                          color: index == 0
-                              ? CustomColors.blackColor
-                              : CustomColors.whiteColor,
+                          color:
+                              // index == 0
+                              //     ? CustomColors.blackColor
+                              //     :
+                              CustomColors.whiteColor,
                         ),
                       ),
                     ),
@@ -111,11 +134,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           });
                         },
                         child: SvgPicture.asset(
-                          ConstantString.calendarIcon,
+                          ConstantString.messageIcon,
                           height: 20,
-                          color: index == 1
-                              ? CustomColors.blackColor
-                              : CustomColors.whiteColor,
+                          color:
+                              // index == 1
+                              //     ? CustomColors.blackColor
+                              //     :
+                              CustomColors.whiteColor,
                         ),
                       ),
                     ),
@@ -129,11 +154,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           });
                         },
                         child: SvgPicture.asset(
-                          ConstantString.searchIcon,
+                          ConstantString.calendarIcon,
                           height: 20,
-                          color: index == 2
-                              ? CustomColors.blackColor
-                              : CustomColors.whiteColor,
+                          color:
+                              //  index == 2
+                              //     ? CustomColors.blackColor
+                              //     :
+                              CustomColors.whiteColor,
                         ),
                       ),
                     ),
@@ -148,9 +175,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: SvgPicture.asset(
                           ConstantString.profileIcon,
                           height: 20,
-                          color: index == 3
-                              ? CustomColors.blackColor
-                              : CustomColors.whiteColor,
+                          color:
+                              // index == 3
+                              //     ? CustomColors.blackColor
+                              //     :
+                              CustomColors.whiteColor,
                         ),
                       ),
                     ),
@@ -164,11 +193,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 56.0,
                   height: 56.0,
                   decoration: BoxDecoration(
-                      color: const Color(0xFF8C79FF),
+                      color: const Color(0xFF9DF0F9),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: Colors.white, width: 5)),
                   child: FloatingActionButton(
-                    backgroundColor: const Color(0xFF8C79FF),
+                    backgroundColor: const Color(0xFF9DF0F9),
                     onPressed: () {
                       setState(() {
                         index = 4;
@@ -178,11 +207,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     child: SvgPicture.asset(
-                      ConstantString.messageIcon,
+                      ConstantString.searchIcon,
                       height: 18,
-                      color: index == 4
-                          ? CustomColors.blackColor
-                          : CustomColors.whiteColor,
+                      color:
+                          // index == 4
+                          //     ? CustomColors.whiteColor
+                          //     :
+                          CustomColors.blackColor,
                     ),
                   ),
                 ),
